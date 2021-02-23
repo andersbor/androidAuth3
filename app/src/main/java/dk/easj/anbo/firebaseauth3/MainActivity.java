@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             logoutButton.setVisibility(View.GONE);
             loginButton.setVisibility(View.VISIBLE);
             registerButton.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             loginButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
             registerButton.setVisibility(View.GONE);
@@ -88,10 +87,8 @@ public class MainActivity extends AppCompatActivity {
                             Log.w("LOGIN", "signInWithEmail:failure", task.getException());
                             Toast.makeText(getBaseContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            messageView.setText("Authentication failed");
+                            messageView.setText(task.getException().getMessage());
                         }
-
-                        // ...
                     }
                 });
     }
@@ -122,21 +119,13 @@ public class MainActivity extends AppCompatActivity {
                             messageView.setText("Created .... now try to login");
                             updateButtonVisibility();
                         } else {
-                            try {
-                                // If sign in fails, display a message to the user.
-                                messageView.setText("Problem ... not created");
-                                AuthResult result = task.getResult(); // makes the exception so that we can get the cause
-                            } catch (RuntimeExecutionException ex) {
-                                messageView.setText(ex.getCause().getMessage());
-                            }
+                            messageView.setText(task.getException().getMessage());
                         }
-
                     }
                 });
-
     }
 
-    public void logut(View view) {
+    public void logout(View view) {
         mAuth.signOut();
         updateButtonVisibility();
     }
