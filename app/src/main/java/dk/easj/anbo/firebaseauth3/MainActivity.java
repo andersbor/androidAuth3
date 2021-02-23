@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             loginButton.setVisibility(View.VISIBLE);
             registerButton.setVisibility(View.VISIBLE);
         } else {
-            loginButton.setVisibility(View.VISIBLE);
+            logoutButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
             registerButton.setVisibility(View.GONE);
         }
@@ -63,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordView.getText().toString();
 
         if ("".equals(email)) {
-            messageView.setText("No email specified");
+            emailView.setError("No email");
             return;
         }
         if ("".equals(password)) {
-            messageView.setText("No password specified");
+            passwordView.setError("No password");
             return;
         }
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            messageView.setText("Welcome " + user.getUid());
+                            messageView.setText("Welcome " + user.getEmail());
                             updateButtonVisibility();
                             // Go to another activity using an Intent
                         } else {
@@ -100,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordView.getText().toString();
 
         if ("".equals(email)) {
-            messageView.setText("No email specified");
+            emailView.setError("No email");
             return;
         }
         if ("".equals(password)) {
-            messageView.setText("No password specified");
+            passwordView.setError("No password");
             return;
         }
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            messageView.setText("Created .... now try to login");
+                            messageView.setText("Welcome " + user.getEmail());
                             updateButtonVisibility();
                         } else {
                             messageView.setText(task.getException().getMessage());
