@@ -37,7 +37,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.mainPasswordEditText)).perform(typeText("andersb"))
                 .perform(closeSoftKeyboard());
         onView(withId(R.id.mainLoginButton)).perform(click());
-        pause(1000);
+        pause(1000); // to wait for Firebase response to arrive
         onView(withId(R.id.mainMessageTextView)).check(matches(withText(("Welcome andersb@gmail.com"))));
     }
 
